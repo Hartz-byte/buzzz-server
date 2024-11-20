@@ -6,13 +6,6 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "./index.js",
-      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -30,6 +23,12 @@
           "value": "Content-Type, Authorization"
         }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.js"
     }
   ]
 }
