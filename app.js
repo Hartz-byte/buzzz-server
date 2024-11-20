@@ -11,14 +11,14 @@ const express_graphql_1 = require("express-graphql");
 const schema_1 = require("./graphql/schema");
 const resolver_1 = require("./graphql/resolver");
 const app = (0, express_1.default)();
-// app.use(
-//   (0, cors_1.default)({
-//     origin: "https://buzzz-server.vercel.app/",
-//     methods: ["GET", "POST"],
-//     allowedHeaders: ["Content-Type", "Authorization"],
-//   })
-// );
-app.use((0, cors_1.default)());
+app.use(
+  (0, cors_1.default)({
+    origin: "https://buzzz-server.vercel.app/",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+// app.use((0, cors_1.default)());
 // Set up the GraphQL endpoint
 app.use(
   "/graphql",
