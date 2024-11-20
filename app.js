@@ -20,7 +20,7 @@ app.use(
   })
 );
 // Handle preflight requests
-app.options("*", cors());
+// app.options("*", cors());
 // Set up the GraphQL endpoint
 app.use(
   "/graphql",
