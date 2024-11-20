@@ -13,7 +13,7 @@ const resolver_1 = require("./graphql/resolver");
 const app = (0, express_1.default)();
 app.use(
   (0, cors_1.default)({
-    origin: "https://buzzz-server.vercel.app/",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
