@@ -13,7 +13,7 @@ const resolver_1 = require("./graphql/resolver");
 const app = (0, express_1.default)();
 app.use(
   (0, cors_1.default)({
-    origin: ["https://buzzz-server.vercel.app/"],
+    origin: "https://buzzz-server.vercel.app/",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -33,7 +33,31 @@ app.use(
             : _a.split(" ")[1],
       },
       graphiql: true,
+      customFormatErrorFn: (error) => {
+        // Customize error response
+        console.error("GraphQL Error:", error.message);
+        return {
+          message: error.message,
+          locations: error.locations,
+          path: error.path,
+        };
+      },
     };
   })
 );
+// Custom 404 Middleware
+app.use((req, res, next) => {
+  res.status(404).json({
+    error: "Not Found",
+    message: `The requested endpoint ${req.originalUrl} was not found.`,
+  });
+});
+// Global Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.error("Unhandled Error:", err.message);
+  res.status(500).json({
+    error: "Internal Server Error",
+    message: err.message,
+  });
+});
 exports.default = app;
