@@ -50,7 +50,7 @@ app.use(
 app.use((req, res, next) => {
   res.status(404).json({
     error: "Not Found",
-    message: `The requested endpoint ${req.originalUrl} was not found.`,
+    message: `add "/graphql" at the current url endpoint`,
   });
 });
 // Global Error Handling Middleware
