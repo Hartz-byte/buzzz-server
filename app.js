@@ -4,23 +4,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const express_graphql_1 = require("express-graphql");
 const schema_1 = require("./graphql/schema");
 const resolver_1 = require("./graphql/resolver");
 const app = (0, express_1.default)();
-const allowCors = (req, res, next) => {
-    // Ensure return type is void
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS, PATCH, DELETE, POST, PUT");
-    res.setHeader("Access-Control-Allow-Headers", "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version");
-    if (req.method === "OPTIONS") {
-        res.status(200).end();
-        return;
-    }
-    next();
-};
-app.use(allowCors);
+app.use((0, cors_1.default)({
+    // origin: ["http://localhost:5173", "https://buzzz-app.vercel.app"],
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+}));
+// Handle preflight requests
+app.options("*", (0, cors_1.default)());
 // Set up the GraphQL endpoint
 app.use("/graphql", (0, express_graphql_1.graphqlHTTP)((req) => {
     var _a;
@@ -47,4 +44,12 @@ app.use((req, res, next) => {
         message: `add "/graphql" at the current URL endpoint`,
     });
 });
+// Global Error Handling Middleware
+// app.use((err, req, res, next) => {
+//   console.error("Unhandled Error:", err.message);
+//   res.status(500).json({
+//     error: "Internal Server Error",
+//     message: err.message,
+//   });
+// });
 exports.default = app;
