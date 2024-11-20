@@ -10,14 +10,14 @@ const schema_1 = require("./graphql/schema");
 const resolver_1 = require("./graphql/resolver");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    // origin: ["http://localhost:5173", "https://buzzz-app.vercel.app"],
-    origin: "*",
+    origin: ["http://localhost:5173", "https://buzzz-app.vercel.app"],
+    // origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
 }));
 // Handle preflight requests
-app.options("*", (0, cors_1.default)());
+// app.options("*", cors());
 // Set up the GraphQL endpoint
 app.use("/graphql", (0, express_graphql_1.graphqlHTTP)((req) => {
     var _a;
