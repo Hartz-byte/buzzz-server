@@ -10,7 +10,7 @@ const schema_1 = require("./graphql/schema");
 const resolver_1 = require("./graphql/resolver");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: "http://localhost:5173",
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
