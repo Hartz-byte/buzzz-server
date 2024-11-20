@@ -13,12 +13,14 @@ const resolver_1 = require("./graphql/resolver");
 const app = (0, express_1.default)();
 app.use(
   (0, cors_1.default)({
-    origin: "http://localhost:5173",
-    methods: ["GET", "POST"],
+    origin: ["http://localhost:5173", "https://buzzz-app.vercel.app"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
-// app.use((0, cors_1.default)());
+// Handle preflight requests
+app.options("*", cors());
 // Set up the GraphQL endpoint
 app.use(
   "/graphql",
